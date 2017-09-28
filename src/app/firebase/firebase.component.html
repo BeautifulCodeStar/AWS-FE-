@@ -1,0 +1,29 @@
+
+<div class='row'>
+  <div class='col-md-5 col-md-offset-2 btn-group' class='exchange-items'>
+    <ss-multiselect-dropdown [options]='exchange' [texts]='myTexts' [settings]='settings' (onAdded)='added($event)' (onRemoved)='removed($event)' [(ngModel)]='optionsModel'></ss-multiselect-dropdown>
+  </div>
+
+  <div class='col-md-5 col-md-offset-2 btn-group' class='symbol-items'>
+    <ss-multiselect-dropdown [options]='symbol' [texts]='myTexts' [settings]='settings' (onAdded)='addGridItems($event)' (onRemoved)='removeGridItems($event)' [(ngModel)]='optionsModel1'></ss-multiselect-dropdown>
+  </div>
+  <div class='col-md-5 col-md-offset-2 ag-grid'>
+    <ag-grid-angular #agGrid class='ag-fresh'
+      [gridOptions]='gridOptions'
+      [columnDefs]='columnDefs'
+      [showToolPanel]='showToolPanel'
+      [rowData]='rowData'
+      enableColResize
+      enableSorting
+      enableFilter
+      rowHeight='22'
+      rowSelection='multiple'
+      (cellClicked)='onCellClicked($event)'
+      (cellDoubleClicked)='onCellDoubleClicked($event)'
+      [enableFilter]='true'
+      >
+    </ag-grid-angular>
+  </div>
+  <div class='detect' ([ngModel])="symbol" (ngModelChange)="filterGrid()"></div>
+</div>
+
