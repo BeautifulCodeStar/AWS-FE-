@@ -1,0 +1,11 @@
+<div class="rank-container" (window:resize)="onResize($event)">
+  <div >
+    <h2 class="ranking-title">Keyword Ranking</h2>
+  </div>
+  <div id="keyword-chart"></div>
+</div>
+<div class="rank-container" (window:resize)="onResize($event)">
+  <h2 class="price-title">Price</h2>
+  <div id="price-chart"></div>
+</div>
+<a mat-fab routerLink="/rank" class="asin-manage" matTooltip="Rank" matTooltipPosition="left">Rank</a>

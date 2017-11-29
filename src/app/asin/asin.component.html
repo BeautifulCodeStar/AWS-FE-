@@ -1,0 +1,32 @@
+<div class="card-content table-responsive product-title-array">
+
+  <table class="table table-hover">
+    <thead class="text-warning">
+      <tr>
+        <th class="no">№</th>
+        <th class="asin">ASIN</th>
+        <th>Phrases</th>
+        <th>Actions <div align="right" style="display: inline-block">
+          <button mat-icon-button (click)="add()" matTooltip="Add ASIN and Keywords" matTooltipPosition="right">
+            <mat-icon aria-label="icon">add_circle</mat-icon>
+          </button>
+        </div></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of asins;let index = index;">
+        <td>{{ index + 1}}</td>
+        <td>{{ item.asin || '-' }}</td>
+        <td>{{ item.phrases || '-' }}</td>
+        <td class="Actions">
+          <button mat-icon-button (click)="edit(item)" matTooltip="Edit ASIN and Keywords" matTooltipPosition="right">
+            <mat-icon aria-label="icon">border_color</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(item)" matTooltip="Delete ASIN and Keywords" matTooltipPosition="right">
+            <mat-icon aria-label="icon">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<a mat-fab routerLink="/rank" class="asin-manage" matTooltip="Rank" matTooltipPosition="left">Rank</a>

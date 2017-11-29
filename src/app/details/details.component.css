@@ -1,0 +1,49 @@
+.ranking-title,
+.price-title {
+  padding: 20px;
+}
+.ranking-title,
+.actions {
+  display: inline-block;
+}
+.actions {
+  display: inline-block;
+  float: right;
+}
+
+.actions * {
+  font-size: 20px;
+  padding: 20px;
+}
+.star {
+  padding:10px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.rank-container {
+   background: white;
+   width: 97%;
+   height: 100% auto;
+   word-break: break-all;
+   padding: 20px;
+   margin: 0 auto;
+   margin-top: 1vh;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+   0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.chart {
+  width: 100%;
+}
+.asin-manage {
+  position: absolute;
+  right: 34px;
+  top: 13px;
+  outline: none;
+}
+h2 { font-family: serif; font-weight: 100;}
+.keyword-chart,
+.price-chart {
+  overflow-y: scroll;
+}

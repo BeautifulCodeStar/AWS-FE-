@@ -1,0 +1,95 @@
+<div class="card-content table-responsive product-title-array" (window:resize)="onResize($event)">
+  <table class="table table-hover">
+    <thead class="text-warning">
+      <tr>
+        <th class="header-title">
+          <div class="product">
+            <span class="info">Product</span>
+            <div class="inc-dec-btns">
+              <i class="material-icons" (click)="sortUp('title')">keyboard_arrow_up</i>
+              <i class="material-icons" (click)="sortDown('title')">keyboard_arrow_down</i>
+            </div>
+          </div>
+          <div class="ui small icon input">
+            <input type="text" class="search" [(ngModel)]="search" (keyup)="filter(keyword.value)" #keyword name="keyword" matTooltip="Search ASIN" matTooltipPosition="right"   placeholder="title or ASIN" required>
+            <i class="search icon search-btn"></i>
+          </div>
+        </th>
+        <th>
+          <div class="ranking-index">
+            <span class="info">Ranking Index</span>
+            <div class="inc-dec-btns">
+              <i class="material-icons" (click)="sortUp('stock')">keyboard_arrow_up</i>
+              <i class="material-icons" (click)="sortDown('stock')">keyboard_arrow_down</i>
+            </div>
+          </div>
+        </th>
+        <th>
+          <div class="keywords">
+            <span class="info">Keywords</span>
+            <div class="inc-dec-btns">
+              <i class="material-icons" (click)="sortUp('numberOfKeywords')">keyboard_arrow_up</i>
+              <i class="material-icons" (click)="sortDown('numberOfKeywords')">keyboard_arrow_down</i>
+            </div>
+          </div>
+        </th>
+        <th>
+          <div class="ranking-avg">
+            <span class="info">Ranking(avg)</span>
+            <div class="inc-dec-btns">
+              <i class="material-icons" (click)="sortUp('rankingAvg')">keyboard_arrow_up</i>
+              <i class="material-icons" (click)="sortDown('rankingAvg')">keyboard_arrow_down</i>
+            </div>
+          </div>
+        </th>
+        <th>
+          <div class="top-ranking">
+            <span class="info">Top Ranking</span>
+            <div class="inc-dec-btns">
+              <i class="material-icons" (click)="sortUp('topRanking')">keyboard_arrow_up</i>
+              <i class="material-icons" (click)="sortDown('topRanking')">keyboard_arrow_down</i>
+            </div>
+          </div>
+        </th>
+        <th class="title">Last note</th>
+        <th class="title">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products;let index = index;">
+        <td class="product-cell" >
+          <div class="product-photo">
+            <img class="product-img" (click)="details(index)" src="https://images-na.ssl-images-amazon.com/images/I/{{product.images_csv}}" >
+          </div>
+          <div class="product-info">
+            <h4 class="keyword-rank product-title " (click)="details(index)" matTooltip="{{product.title}}" matTooltipPosition="below">{{ title(product.title) }}</h4>
+            <h4 class="product-title open-asin">{{ product.asin || '-' }}
+              <a href="https://www.amazon.com/dp/{{product.asin}}" target="_blank">
+                <i class="material-icons open-product">open_in_new</i>
+              </a> / {{ product.brand || '-' }}
+            </h4>
+          </div>
+        </td>
+        <td class="line-chart">
+          <google-chart class="{{product.title}}" [data]="product.rank"></google-chart>
+          <div class="stock" *ngIf="product.stock == 'In Stock'" >
+            <i class="material-icons">trending_up</i>
+          </div>
+          <div class="stock" *ngIf="product.stock == 'Out of Stock'">
+            <i class="material-icons">trending_down</i>
+          </div>
+          <div class="stock" *ngIf="product.stock !== 'Out of Stock' && product.stock !== 'In Stock'">
+            <i class="material-icons">trending_flat</i>
+          </div>
+        </td>
+        <td>{{ product.numberOfKeywords || '0' }} / {{ product.totalNumberOfKeywords || '0' }}</td>
+        <td>{{ rankingAvg(product.rank.dataTable) || '-' }}</td>
+        <td>{{ product.topRanking || '-'}}</td>
+        <td class="lastnote-cell"></td>
+        <td class="details-cell"><i class="material-icons" matTooltip="Details" matTooltipPosition="above" (click)="openDialog(index)">content_copy</i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<a mat-fab routerLink="/asin" class="asin-manage" matTooltip="ASIN Manage" matTooltipPosition="left">ASIN</a>
+
