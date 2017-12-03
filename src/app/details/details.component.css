@@ -41,6 +41,7 @@
   right: 34px;
   top: 13px;
   outline: none;
+  background-color: rgb(87, 157, 218);
 }
 h2 { font-family: serif; font-weight: 100;}
 .keyword-chart,

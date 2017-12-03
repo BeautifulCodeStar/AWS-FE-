@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('firebase App', () => {
+describe('Keepa App', () => {
   let page: AppPage;
 
   beforeEach(() => {

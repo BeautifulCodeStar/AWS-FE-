@@ -45,11 +45,18 @@ export class DetailsComponent extends GoogleChartComponent
 
   drawGraph() {
     const materialOptions = {
-      //  series: { 0: { axis: 'Price' }, 1: { axis: 'BestSellersRank' } },
-      //  axes: {
-      //    y: { Temps: { label: 'Price' }, Daylight: { label: 'BestSellersRank' } }
-      //  }
-      chart: {  height: 500 }, vAxis: { format: ''}
+      chart: { height: 500 },
+      vAxis: { format: 'decimal', minValue: 0 },
+      hAxis: {
+        titleTextStyle: {color: '#333'},
+        slantedText: true, slantedTextAngle: 80
+      },
+      explorer: {
+        actions: ['dragToZoom', 'rightClickToReset'],
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomIn: 4.0
+      }
     };
     if (this.ranking) {
       this.data = this.createDataTable(this.ranking);
@@ -65,17 +72,16 @@ export class DetailsComponent extends GoogleChartComponent
         }
         if (that.priceRanking) {
           that.chart = this.createLineChart(document.getElementById('price-chart'));
-          that.chart.draw(that.createDataTable(that.priceRanking), google.charts.Line.convertOptions(materialOptions));
+          that.chart.draw(that.createDataTable(that.priceRanking), materialOptions);
         }
       }, 100);
     }
   }
 
   keywordRanks(products) {
-      const keywordGraph = {
-        chartType: 'LineChart',
-        dataTable: [['Date', 'Keyword'], [0, 0]]
-      };
+      const today = new Date();
+      let index = today.getMonth() + 1 + '/' + today.getDate() + '/' + today.getFullYear();
+      const keywordGraph = { chartType: 'LineChart', dataTable: [['Date', 'Keyword'], [index, 0]] };
       const dataTable = [];
       if (products) {
         this.product = JSON.parse(products);
@@ -107,7 +113,8 @@ export class DetailsComponent extends GoogleChartComponent
             return Math.max(a, b);
           });
           for (let i = 0; i < maxLen; i++) {
-            mainArr.push([date[i]]);
+            index = date[i] ? date[i] : today.getMonth() + 1 + '/' + today.getDate() + '/' + today.getFullYear();
+            mainArr.push([index]);
             keywordRank.forEach(val => {
               if (val.rank.indexOf(',') !== -1) {
                 const rankArr = val.rank.split(',');
@@ -141,7 +148,6 @@ export class DetailsComponent extends GoogleChartComponent
       dataTable: [['Date', 'Price', 'BestSellersRank']]
     };
     const data = JSON.parse(prices);
-    console.log('data', data);
     if (
       data.bsr && data.price &&
       (data.price.indexOf(',') !== -1 || data.bsr.indexOf(',') !== -1 || data.date.indexOf(',') !== -1)
@@ -153,7 +159,9 @@ export class DetailsComponent extends GoogleChartComponent
       if (price && price.length > 0) {
         const priceData = [];
         price.forEach((element, key) => {
-          priceData.push([date[key], parseFloat(element)]);
+          const today = new Date();
+          const index = date[key] ? date[key] : today.getMonth() + 1 + '/' + today.getDate() + '/' + today.getFullYear();
+          priceData.push([index, parseFloat(element)]);
         });
         for (let i = 0; i < bsr.length; i++) {
           let rank = bsr[i];
@@ -168,12 +176,13 @@ export class DetailsComponent extends GoogleChartComponent
         this.priceRanking = priceGraph.dataTable;
       }
     } else {
-      this.priceRanking = [['Date', 'Price', 'BestSellersRank'], [new Date().getUTCDate(), 0, 0]];
+      const today = new Date();
+      const index = today.getMonth() + 1 + '/' + today.getDate() + '/' + today.getFullYear();
+      this.priceRanking = [['Date', 'Price', 'BestSellersRank'], [index, 0, 0]];
     }
   }
 
   onResize(e) {
     this.getGraphData();
   }
-
 }

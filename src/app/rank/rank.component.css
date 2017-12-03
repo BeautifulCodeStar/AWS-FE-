@@ -135,6 +135,7 @@ tr th {
   right: 34px;
   top: 13px;
   outline: none;
+  background-color: rgb(87, 157, 218);
 }
 h4.keyword-rank {
   cursor: pointer;
@@ -159,3 +160,9 @@ google-chart, .stock {
   height: 80px;
 }
 
+tr:hover {
+  background: white !Important;
+}
+svg {
+  display: none;
+}

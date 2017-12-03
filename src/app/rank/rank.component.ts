@@ -149,11 +149,30 @@ export class RankComponent implements OnInit {
       item.rank = {
         chartType: 'LineChart',
         options: {
-          hAxis: { title: 'Day' },
-          vAxis: { title: 'Rank' },
+          chartArea: {left: 10, top: 10, width: '250', height: '90'},
+          curveType: 'function',
+          interpolateNulls: true,
+          legend: 'none',
+          colors: ['rgb(86, 157, 218)', 'rgb(233,233,233)'],
+          areaOpacity: 0.1,
+          pointSize: 4,
+          fontSize: 10,
+          tooltip: { trigger: 'both' },
+          series: {
+            0: {type: 'line', targetAxisIndex: 0},
+            1: {type: 'line', targetAxisIndex: 1}
+          },
+          hAxis: { title: 'Day',  baselineColor: 'none',
+              gridlines: { count: 0 },
+              textPosition: 'none'},
+          vAxis: { title: '',   baselineColor: 'rgb(233,233,233)',
+              minValue: 0,
+              viewWindow: {min: 0},
+              textStyle: {color: 'rgb(233,233,233)'},
+              gridlines: { count: 2, color: 'transparent' }, },
           backgroundColor: 'white',
           width: '200',
-          height: '130'
+          height: '80'
         }
       };
       item.rank.dataTable = dataTable;
@@ -202,7 +221,7 @@ export class RankComponent implements OnInit {
   openDialog(index): void {
     const dialogRef = this.dialog.open(DetailsDialogComponent, {
       width: '700px',
-      height: '740px',
+      height: '800px',
       data: this.products[index]
     });
 

@@ -10,7 +10,7 @@
 
     // ADD THIS
     "types": [
-      "firebase"
+      "Keepa"
     ]
   },
   "exclude": [
